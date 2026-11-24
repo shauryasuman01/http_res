@@ -1,0 +1,15 @@
+{
+  "name": "adwiser-website-probe",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test tests/node/*.test.js",
+    "start:api": "node api/server.js",
+    "start:ingestion": "node ingestion/server.js",
+    "smoke": "node tests/smoke.js"
+  },
+  "dependencies": {
+    "zeromq": "^6.8.0"
+  }
+}

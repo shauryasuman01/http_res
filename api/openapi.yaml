@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info: {title: ADWISER Website Probe API, version: 1.0.0}
+servers: [{url: http://127.0.0.1:8090}]
+paths:
+  /api/website-probes/targets: {get: {responses: {'200': {description: Configured targets}}}}
+  /api/website-probes/latest: {get: {responses: {'200': {description: Latest attempt per target; never-probed has null latency}}}}
+  /api/website-probes/history:
+    get:
+      parameters:
+      - {name: hostname, in: query, schema: {type: string}}
+      - {name: port, in: query, schema: {type: integer}}
+      - {name: probe_id, in: query, schema: {type: string}}
+      - {name: from, in: query, description: Inclusive UTC ISO timestamp, schema: {type: string, format: date-time}}
+      - {name: to, in: query, description: Inclusive UTC ISO timestamp, schema: {type: string, format: date-time}}
+      - {name: limit, in: query, schema: {type: integer, default: 100, maximum: 500}}
+      - {name: offset, in: query, schema: {type: integer, default: 0}}
+      responses: {'200': {description: Deterministically ordered attempts}}
+  /api/website-probes/summary: {get: {description: Successful samples alone contribute to latency statistics; empty statistics are null., responses: {'200': {description: Per-target counts and min/mean/p50/p95/max milliseconds}}}}

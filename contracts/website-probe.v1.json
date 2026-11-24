@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adwiser.local/contracts/website-probe.v1.json",
+  "type": "object",
+  "required": ["schema_version", "attempt_id", "probe_id", "hostname", "port", "observed_at", "status"],
+  "properties": {
+    "schema_version": {"const": 1}, "attempt_id": {"type": "string"}, "probe_id": {"type": "string"},
+    "hostname": {"type": "string", "minLength": 1}, "port": {"type": "integer", "minimum": 1, "maximum": 65535},
+    "resolved_ip": {"type": ["string", "null"]}, "observed_at": {"type": "string", "format": "date-time"},
+    "first_syn_capture_ns": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+    "syn_ack_capture_ns": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+    "syn_ack_ms": {"type": ["number", "null"]}, "syn_retransmits": {"type": "integer", "minimum": 0},
+    "status": {"enum": ["ok", "dns_error", "timeout", "connection_refused", "network_error", "capture_incomplete", "skipped"]},
+    "error_reason": {"type": ["string", "null"]}
+  }
+}

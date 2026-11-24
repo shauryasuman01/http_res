@@ -1,0 +1,8 @@
+{
+  "interval_seconds": 30,
+  "timeout_seconds": 5,
+  "concurrency": 5,
+  "targets": [
+    "example.com", "www.google.com", "www.youtube.com", "www.wikipedia.org", "en.wikipedia.org", "www.wikimedia.org", "www.microsoft.com", "www.apple.com", "www.mozilla.org", "www.python.org", "docs.python.org", "pypi.org", "www.kernel.org", "www.debian.org", "ubuntu.com", "fedoraproject.org", "www.postgresql.org", "www.sqlite.org", "nodejs.org", "www.npmjs.com", "www.rust-lang.org", "go.dev", "www.djangoproject.com", "fastapi.tiangolo.com", "github.com", "docs.github.com", "gitlab.com", "stackoverflow.com", "developer.mozilla.org", "www.w3.org", "www.ietf.org", "www.rfc-editor.org", "www.iana.org", "www.icann.org", "www.cloudflare.com", "www.ibm.com", "www.oracle.com", "www.docker.com", "kubernetes.io", "grafana.com", "www.influxdata.com", "zeromq.org", "www.iisc.ac.in", "www.iitb.ac.in", "www.iitm.ac.in", "www.iitk.ac.in", "www.iitkgp.ac.in", "www.isro.gov.in", "www.nic.in", "www.india.gov.in"
+  ]
+}

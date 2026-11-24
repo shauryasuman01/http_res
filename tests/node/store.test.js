@@ -1,0 +1,2 @@
+const test=require('node:test'); const assert=require('node:assert/strict'); const fs=require('fs'),os=require('os'),path=require('path'); const {FileStore}=require('../../ingestion/store');
+test('replay is idempotent',async()=>{const f=path.join(os.tmpdir(),`probe-${process.pid}.ndjson`),s=new FileStore(f),e={attempt_id:'same'}; assert.equal(await s.write([e,e]),1); assert.equal(await s.write([e]),0); fs.rmSync(f,{force:true});});

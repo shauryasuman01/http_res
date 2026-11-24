@@ -1,0 +1,4 @@
+{
+  "success": {"schema_version":1,"attempt_id":"01JTEST0001","probe_id":"adwiser-probe-dev","hostname":"localhost","port":443,"resolved_ip":"127.0.0.1","observed_at":"2026-11-24T00:00:00.000Z","first_syn_capture_ns":"100000000","syn_ack_capture_ns":"142000000","syn_ack_ms":42,"syn_retransmits":0,"status":"ok","error_reason":null},
+  "failure": {"schema_version":1,"attempt_id":"01JTEST0002","probe_id":"adwiser-probe-dev","hostname":"offline.invalid","port":443,"resolved_ip":null,"observed_at":"2026-11-24T00:00:30.000Z","first_syn_capture_ns":null,"syn_ack_capture_ns":null,"syn_ack_ms":null,"syn_retransmits":0,"status":"dns_error","error_reason":"ENOTFOUND"}
+}

@@ -1,0 +1,9 @@
+function normalize(events, targets) {
+  const by = new Map();
+  for (const e of events) { const key=`${e.hostname}:${e.port}`, old=by.get(key); if (!old || Date.parse(e.observed_at)>Date.parse(old.observed_at) || (e.observed_at===old.observed_at && e.attempt_id>old.attempt_id)) by.set(key,e); }
+  return targets.map(t=>by.get(`${t.hostname}:${t.port}`) || {hostname:t.hostname,port:t.port,status:'never_probed',syn_ack_ms:null,observed_at:null,probe_id:null,resolved_ip:null});
+}
+function filter(events, q) { let out=events; if(q.hostname) out=out.filter(e=>e.hostname===q.hostname.toLowerCase()); if(q.port) out=out.filter(e=>e.port===Number(q.port)); if(q.probe_id) out=out.filter(e=>e.probe_id===q.probe_id); if(q.from) out=out.filter(e=>Date.parse(e.observed_at)>=Date.parse(q.from)); if(q.to) out=out.filter(e=>Date.parse(e.observed_at)<=Date.parse(q.to)); return out.sort((a,b)=>Date.parse(b.observed_at)-Date.parse(a.observed_at)||a.attempt_id.localeCompare(b.attempt_id)); }
+function percentile(xs,p) { if(!xs.length)return null; const i=(xs.length-1)*p, lo=Math.floor(i), hi=Math.ceil(i); return lo===hi?xs[lo]:xs[lo]+(xs[hi]-xs[lo])*(i-lo); }
+function summary(events, targets) { return targets.map(t=>{const xs=events.filter(e=>e.hostname===t.hostname&&e.port===t.port); const ok=xs.filter(e=>e.status==='ok'&&typeof e.syn_ack_ms==='number').map(e=>e.syn_ack_ms).sort((a,b)=>a-b); return {hostname:t.hostname,port:t.port,success_count:ok.length,failure_count:xs.filter(e=>!['ok','skipped'].includes(e.status)).length,skip_count:xs.filter(e=>e.status==='skipped').length,successful_sample_count:ok.length,min_ms:ok[0]??null,mean_ms:ok.length?ok.reduce((a,b)=>a+b,0)/ok.length:null,p50_ms:percentile(ok,.5),p95_ms:percentile(ok,.95),max_ms:ok.at(-1)??null};}); }
+module.exports={normalize,filter,summary};
