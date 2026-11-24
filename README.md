@@ -348,6 +348,25 @@ Statistics exclude failures and return null for no successful samples. Percentil
 
 ## Tests and verification evidence
 
+The included launcher runs the full automated test suite:
+
+```bash
+./run-all.sh test
+```
+
+It can also start the complete local backend in one terminal. Pass the Linux
+interface used by the default route; the probe still runs with `sudo` because
+packet capture requires raw-packet privileges:
+
+```bash
+./run-all.sh backend eth0
+```
+
+Set `PROBE_INTERFACE` instead of passing the interface if preferred. Press
+Ctrl+C to stop the probe, API, ingestion process and database together. The
+launcher runs `node deploy/live.js setup` only on a fresh database; it skips
+setup automatically after the token file has been created.
+
 Run from the project root in Ubuntu or WSL:
 
 ```bash
