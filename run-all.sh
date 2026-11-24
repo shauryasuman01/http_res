@@ -50,7 +50,9 @@ run_backend() {
   db_pid=$!
 
   for _ in {1..60}; do
-    if curl -fsS http://127.0.0.1:18181/health >/dev/null 2>&1; then break; fi
+    # InfluxDB 3 may require a token for /health; a completed HTTP connection
+    # is enough here because deploy/live.js performs the authenticated setup.
+    if curl -sS --connect-timeout 1 http://127.0.0.1:18181/health >/dev/null 2>&1; then break; fi
     sleep 1
   done
   kill -0 "$db_pid" 2>/dev/null || { echo "error: InfluxDB stopped during startup" >&2; exit 1; }
